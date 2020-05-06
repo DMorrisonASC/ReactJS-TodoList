@@ -3,6 +3,7 @@ import firebase from "./Components/firebase"
 import Header from "./Components/Header"
 import Todos from "./Components/Todos"
 import Footer from "./Components/Footer"
+import { Link } from "react-router-dom";
 
 function App() {  
     const [allTodos, setTodos] = useState([])  
@@ -21,28 +22,18 @@ function App() {
                 }
                 return todo
             })
-        setTodos(updatedTodos)  
-        // Other possible solution 
-        // setTodos(prevTodos => {
-        //     const updatedTodos = prevTodos.map(todo => {
-        //         if (todo.id === id) {
-        //             todo.completed = !todo.completed
-        //         }
-        //         return todo
-        //     })
-        //     return updatedTodos // <-- return the todos, not an object
-        // })              
+        setTodos(updatedTodos)                
     }
     const todoComponents = allTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange}/>)
     return (
         <div>
             <Header />
             <div className="todo-list">
-                <button></button>
-            {todoComponents}
-            </div>
-            <Footer />
-        </div>
+                <Link to="/createtodo">Add Todo!</Link>
+                {todoComponents}
+            </div>  
+            <Footer /> 
+        </div>                             
     )
 }
 
