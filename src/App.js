@@ -7,24 +7,28 @@ import { Link } from "react-router-dom";
 
 function App() {  
     const [allTodos, setTodos] = useState([])  
+    
     useEffect(() => {
         const database = firebase.database().ref();
         database.on("value", logData)  
     }, []) 
 
     function logData(rowData) {    
-        setTodos(rowData.val())
+        setTodos([rowData.val()])     
     } 
+
     function handleChange(id) {
             const updatedTodos = allTodos.map(todo => {
                 if (todo.id === id) {
                     todo.completed = !todo.completed
+                    console.log(todo.id + " " + id);        
                 }
                 return todo
             })
-        setTodos(updatedTodos)                
+        setTodos(updatedTodos)              
     }
-    const todoComponents = allTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange}/>)
+    let todoComponents = allTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange}/>)
+    console.log(allTodos); 
     return (
         <div>
             <Header />
