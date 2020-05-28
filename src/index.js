@@ -1,5 +1,7 @@
 // Built in-Components
+// Allows on to us the React library
 import React from 'react';
+// Renders a DOM to the screen, creating the visual content that the user sees
 import ReactDOM from 'react-dom';
 import './style.css';
 import * as serviceWorker from './serviceWorker';
