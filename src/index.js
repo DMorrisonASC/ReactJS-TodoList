@@ -11,13 +11,15 @@ import {
 // Made components
 import App from './App';
 import CreateTodo from "./Components/CreateTodo"
+import EditDeleteTodo from "./Components/EditDeleteTodo"
 
 
 ReactDOM.render(
   <Router>
     <Switch>
-    <Route path="/" exact component={App} />
-    <Route path="/createtodo"  exact component={CreateTodo} />
+      <Route path="/" exact component={App} />
+      <Route path="/createtodo"  exact component={CreateTodo} />
+      <Route path="/editDeleteTodo"  exact component={EditDeleteTodo} />
     </Switch>
   </Router>,
   document.getElementById('root')

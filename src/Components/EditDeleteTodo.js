@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import  { Redirect } from 'react-router-dom'
 import firebase from "firebase"
 
-function CreateTodo() {
+function EditDeleteTodo() {
     const database = firebase.database().ref();
     const [newTodo, addTodo] = useState("")
     const [redirectToHome, gotoHome] = useState(false)
@@ -40,4 +40,4 @@ function CreateTodo() {
     )
 }
 
-export default CreateTodo;
+export default EditDeleteTodo

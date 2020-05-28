@@ -13,27 +13,32 @@ function App() {
         database.on("value", logData)  
     }, []) 
 
-    function logData(rowData) {    
-        setTodos([rowData.val()])     
+    function logData(rowData) {
+        let unFlattenTodo =  [rowData.val()]
+        let flattenTodo = unFlattenTodo.flatMap(todos => Object.values(todos))
+          
+        // setTodos([unFlattenTodo]) 
+        setTodos(flattenTodo)    
     } 
 
     function handleChange(id) {
             const updatedTodos = allTodos.map(todo => {
                 if (todo.id === id) {
-                    todo.completed = !todo.completed
-                    console.log(todo.id + " " + id);        
+                    todo.completed = !todo.completed       
                 }
                 return todo
             })
         setTodos(updatedTodos)              
     }
-    let todoComponents = allTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange}/>)
+
+    let todoComponents = allTodos.map(item => <Link to="/editDeleteTodo"><Todos key={item.id} item={item} handleChange={handleChange}/></Link>)
     console.log(allTodos); 
     return (
         <div>
             <Header />
             <div className="todo-list">
                 <Link to="/createtodo">Add Todo!</Link>
+                <Link to="/editDeleteTodo">aaaaaaaaa</Link>
                 {todoComponents}
             </div>  
             <Footer /> 

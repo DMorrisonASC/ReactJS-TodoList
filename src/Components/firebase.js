@@ -13,14 +13,3 @@ const config = {
 firebase.initializeApp(config);
 // firebase.analytics();
 export default firebase;
-
-
-//     const [allTodos, setTodos] = useEffect("")
-
-// const fetchData = async () => {
-//     const db = firebase.firestore()
-//     const data = await db.collection("Todos").get()
-//     setTodos(data.map(doc => doc.data()))
-//     // setTodosconsole.log(Todos);
-//     }
-//     fetchData()
