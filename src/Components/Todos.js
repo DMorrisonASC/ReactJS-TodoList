@@ -1,5 +1,4 @@
 import React from 'react';
-// import firebase from "./Components/firebase"
 
 function Todos(props){
     return(
@@ -7,9 +6,20 @@ function Todos(props){
             <input 
                 type="checkbox"
                 checked={props.item.completed}
-                onChange={() => props.handleChange(props.item.id)} 
+                onChange={(e) => props.handleChange(props.item.id, e)} 
             />
-            <p>{props.item.text}</p>  
+            <p>{props.item.text}</p>
+            <br />
+            <form onSubmit={props.onSubmit}>
+                <input 
+                    type="text" 
+                    name={props.item.id} 
+                    placeholder={props.item.text} 
+                    onChange={(e) => props.handleChange(props.item.id, e)} 
+                />
+                <button>Edit</button>
+                <button>Delete</button>                
+            </form>
         </div>
     )
 }

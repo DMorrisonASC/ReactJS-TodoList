@@ -9,7 +9,7 @@ function CreateTodo() {
     const [newTodo, addTodo] = useState("")
     const [redirectToHome, gotoHome] = useState(false)
     // 5. It runs when the form is submitted. Any value(number, text, etc) in the the input box is sent to the DB, creating a new todo.
-    function updateDB() {
+    function updateDBLocal() {
         // push to the `value` into the DB.
         const value = database.push() 
         value.set({
@@ -33,7 +33,7 @@ function CreateTodo() {
         <div>
             <h2>What's your goal?</h2>
             {/* 4. When user submits form(using the "Add Todo!" button) `updateDB()` is run */}
-            <form onSubmit={updateDB}>
+            <form onSubmit={updateDBLocal}>
                 {/* 2. When user types anything into the input box run `handleChange()` using `onChange` */}
                 <input 
                 type="text"

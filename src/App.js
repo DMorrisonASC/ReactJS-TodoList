@@ -14,7 +14,7 @@ function App() {
         const database = firebase.database().ref();
         // ...runs `logData()` if there is any values in the DB and passes any values to it.        
         database.on("value", logData)  
-    }, []) 
+    }, [])
 
     function logData(rowData) {
         // 3. store the raw json file in `unFlattenTodo`
@@ -24,29 +24,44 @@ function App() {
         // 4. Store the flatten array into `flattenTodo`
         let flattenTodo = unFlattenTodo.flatMap(todos => Object.values(todos))  
         // 5. Store `flattenTodo` into the state of `allTodos`
-        setTodos(flattenTodo)    
+        setTodos(flattenTodo) 
     } 
 
-    function handleChange(id) {
-            const updatedTodos = allTodos.map(todo => {
-                if (todo.id === id) {
-                    todo.completed = !todo.completed       
-                }
-                return todo
-            })
-        setTodos(updatedTodos)              
+    function handleChange(id, event) {
+        const {name, value, type, checked} = event.target
+        const updatedCheckbox = allTodos.map(checkBox => {
+            if (checkBox.id === id && type === "checkbox") {
+                checkBox.completed = !checkBox.completed       
+            }
+            return checkBox
+        })
+
+        const updatedText = allTodos.map(todo => {
+            if (todo.id === id  && !type === "checkbox") {
+                    todo.text = event.target.value
+                    console.log(event.target.value);                             
+            }
+            return todo
+        })
+
+        type === "checkbox" ? 
+        setTodos(updatedCheckbox) : 
+        setTodos(updatedText)
+        // setTodos(updatedCheckbox)
+    }
+    function onSubmit() {
+        console.log("working")  
     }
     // 6. `todoComponents` maps the array, giving one individual object to one Todo component at a time, looping as times as the number of objects in the array.
-    // So if their are five todo objects in `allTodos`, it runs five times 
-    let todoComponents = allTodos.map(item => <Link to="/editDeleteTodo"><Todos key={item.id} item={item} handleChange={handleChange}/></Link>)
-    console.log(allTodos);
+    // So if their are five todo objects in `allTodos`, it runs five times
+    let todoComponents = allTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange} onSubmit={onSubmit}/>)
+    
     // Return renders everything to the screen(elements & components). It's always the very last step.
     return (
         <div>
             <Header />
             <div className="todo-list">
                 <Link to="/createtodo">Add Todo!</Link>
-                <Link to="/editDeleteTodo">aaaaaaaaa</Link>
                 {todoComponents}
             </div>  
             <Footer /> 
