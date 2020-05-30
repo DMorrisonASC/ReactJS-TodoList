@@ -37,7 +37,7 @@ function App() {
         })
 
         const updatedText = allTodos.map(todo => {
-            if (todo.id === id  && !type === "checkbox") {
+            if (todo.id === id && type === "text") {
                     todo.text = event.target.value
                     console.log(event.target.value);                             
             }
@@ -45,12 +45,16 @@ function App() {
         })
 
         type === "checkbox" ? 
-        setTodos(updatedCheckbox) : 
-        setTodos(updatedText)
-        // setTodos(updatedCheckbox)
+        setTodos(updatedCheckbox) 
+        : 
+        type === "text" ? 
+        setTodos(updatedText) 
+        :  
+        console.log("!");
+        
     }
     function onSubmit() {
-        console.log("working")  
+          
     }
     // 6. `todoComponents` maps the array, giving one individual object to one Todo component at a time, looping as times as the number of objects in the array.
     // So if their are five todo objects in `allTodos`, it runs five times
