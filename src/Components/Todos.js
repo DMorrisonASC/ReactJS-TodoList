@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useRef} from 'react';
+
 
 function Todos(props){
+    const inputRef = useRef(null);
     return(
         <div className="todo-item">
             <input 
@@ -10,11 +12,12 @@ function Todos(props){
             />
             <p>{props.item.text}</p>
             <br />
-            <form onSubmit={props.onSubmit}>
+            <form onSubmit={(e) => props.onSubmit(e)}>
                 <input 
                     type="text" 
                     name={props.item.id} 
                     placeholder={props.item.text} 
+                    ref={inputRef}
                     onChange={(e) => props.handleChange(props.item.id, e)} 
                 />
                 <button>Edit</button>

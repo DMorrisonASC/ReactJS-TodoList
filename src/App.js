@@ -6,8 +6,16 @@ import Footer from "./Components/Footer"
 import { Link } from "react-router-dom";
 
 function App() {
-    // `allTodos` stores the data firebase into an array of object
-    const [allTodos, setTodos] = useState([])
+
+    // `prevTodos` stores the data firebase into an array of object
+    const [prevTodos, setTodos] = useState([])
+    const [didOnsubmitRun, setOnsubmit] = useState(false)
+    // const didOnsubmitRun = (props)= 
+
+    useEffect(() => {
+        if(didOnsubmitRun === true) setOnsubmit(false) // if the state is 'true', it will make it 'false'
+    }, [didOnsubmitRun])
+
     // 1. Runs once, getting access to the DB. Then, it gets the raw json from it 
     useEffect(() => {
         // 2. Get the firebase object needed to get access to their database. Then...
@@ -23,42 +31,45 @@ function App() {
         // More detail at "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat"
         // 4. Store the flatten array into `flattenTodo`
         let flattenTodo = unFlattenTodo.flatMap(todos => Object.values(todos))  
-        // 5. Store `flattenTodo` into the state of `allTodos`
+        // 5. Store `flattenTodo` into the state of `prevTodos`
         setTodos(flattenTodo) 
     } 
 
     function handleChange(id, event) {
         const {name, value, type, checked} = event.target
-        const updatedCheckbox = allTodos.map(checkBox => {
+        const updatedCheckbox = prevTodos.map(checkBox => {
             if (checkBox.id === id && type === "checkbox") {
                 checkBox.completed = !checkBox.completed       
             }
             return checkBox
         })
 
-        const updatedText = allTodos.map(todo => {
+        const updatedText = prevTodos.map(todo => {
             if (todo.id === id && type === "text") {
-                    todo.text = event.target.value
-                    console.log(event.target.value);                             
+                    todo.text = event.target.value                            
             }
             return todo
-        })
+        }
+
+        )
 
         type === "checkbox" ? 
         setTodos(updatedCheckbox) 
         : 
-        type === "text" ? 
-        setTodos(updatedText) 
+        type === "text" && didOnsubmitRun ? 
+        setTodos(updatedText)
         :  
-        console.log("!");
-        
+        console.log("!");  
     }
-    function onSubmit() {
-          
-    }
+    function onSubmit(event) {
+        event.preventDefault()
+        setOnsubmit(true) 
+        // setOnsubmit(false)   
+}
     // 6. `todoComponents` maps the array, giving one individual object to one Todo component at a time, looping as times as the number of objects in the array.
-    // So if their are five todo objects in `allTodos`, it runs five times
-    let todoComponents = allTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange} onSubmit={onSubmit}/>)
+    // So if their are five todo objects in `prevTodos`, it runs five times
+    let todoComponents = prevTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange} onSubmit={onSubmit}/>)
+    console.log(prevTodos);
     
     // Return renders everything to the screen(elements & components). It's always the very last step.
     return (
