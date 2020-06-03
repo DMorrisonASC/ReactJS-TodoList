@@ -10,7 +10,6 @@ function App() {
     // `prevTodos` stores the data firebase into an array of object
     const [prevTodos, setTodos] = useState([])
     const [didOnsubmitRun, setOnsubmit] = useState(false)
-    // const didOnsubmitRun = (props)= 
 
     useEffect(() => {
         if(didOnsubmitRun === true) setOnsubmit(false) // if the state is 'true', it will make it 'false'
@@ -49,9 +48,7 @@ function App() {
                     todo.text = event.target.value                            
             }
             return todo
-        }
-
-        )
+        })
 
         type === "checkbox" ? 
         setTodos(updatedCheckbox) 
@@ -63,8 +60,7 @@ function App() {
     }
     function onSubmit(event) {
         event.preventDefault()
-        setOnsubmit(true) 
-        // setOnsubmit(false)   
+        setOnsubmit(true)   
 }
     // 6. `todoComponents` maps the array, giving one individual object to one Todo component at a time, looping as times as the number of objects in the array.
     // So if their are five todo objects in `prevTodos`, it runs five times

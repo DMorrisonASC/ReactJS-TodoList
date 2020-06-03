@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 
-
 function Todos(props){
     const inputRef = useRef(null);
     return(
