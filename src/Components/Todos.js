@@ -19,8 +19,23 @@ function Todos(props){
                     ref={inputRef}
                     onChange={(e) => props.handleChange(props.item.id, e)} 
                 />
-                <button>Edit</button>
-                <button>Delete</button>                
+                {/* <button
+                    name="Edit"
+                    onChange={(e) => props.handleChange(props.item.id, e)}
+                >Edit</button> */}
+                <input
+                    type="submit"
+                    name="EditBtn"
+                    value="Edit"
+                    onChange={(e) => props.handleChange(props.item.id, e)}
+                />
+                <input
+                    type="submit"
+                    name="DeleteBtn"
+                    value="Delete"
+                    onChange={(e) => props.handleChange(props.item.id, e)}
+                /> 
+                      
             </form>
         </div>
     )

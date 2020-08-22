@@ -33,10 +33,13 @@ function App() {
         // 5. Store `flattenTodo` into the state of `prevTodos`
         setTodos(flattenTodo) 
     } 
-
+    // Listens for any changes to the state of a component
+    // Gets params "id" & "event" to identify which component is changed when clicked
     function handleChange(id, event) {
+        // store values from the component(Todos)
         const {name, value, type, checked} = event.target
         const updatedCheckbox = prevTodos.map(checkBox => {
+            // If the "id" of the "Todos" matches anything in "prevTodos"(Database) change the check box to checked or unchecked
             if (checkBox.id === id && type === "checkbox") {
                 checkBox.completed = !checkBox.completed       
             }
@@ -45,27 +48,33 @@ function App() {
 
         const updatedText = prevTodos.map(todo => {
             if (todo.id === id && type === "text") {
-                    todo.text = event.target.value                            
+                    todo.text = event.target.value                       
+            }
+            return todo
+        })
+        const deleteTodo = prevTodos.map(todo => {
+            if (todo.id === id) {
+                    console.log(id);                            
             }
             return todo
         })
 
         type === "checkbox" ? 
-        setTodos(updatedCheckbox) 
+        setTodos(updatedCheckbox)
         : 
         type === "text" && didOnsubmitRun ? 
         setTodos(updatedText)
-        :  
-        console.log("!");  
+        :
+        console.log([event.target.value]);   
     }
+
     function onSubmit(event) {
         event.preventDefault()
-        setOnsubmit(true)   
-}
+        setOnsubmit(true)  
+    }
     // 6. `todoComponents` maps the array, giving one individual object to one Todo component at a time, looping as times as the number of objects in the array.
     // So if their are five todo objects in `prevTodos`, it runs five times
     let todoComponents = prevTodos.map(item => <Todos key={item.id} item={item} handleChange={handleChange} onSubmit={onSubmit}/>)
-    console.log(prevTodos);
     
     // Return renders everything to the screen(elements & components). It's always the very last step.
     return (
